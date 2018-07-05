@@ -32,11 +32,7 @@ func (m *MongoTransport) FindByID(ID string, data interface{}) error {
 	session := m.Session.Copy()
 	defer session.Close()
 
-	err := session.DB("worldcup").C("players").FindId(bson.ObjectIdHex(ID)).One(data)
-	if err != nil {
-		return err
-	}
-	return nil
+	return session.DB("worldcup").C("players").FindId(bson.ObjectIdHex(ID)).One(data)
 }
 
 // FindAll retorna uma lista de objetos vindos do DB
@@ -44,11 +40,7 @@ func (m *MongoTransport) FindAll(data interface{}) error {
 	session := m.Session.Copy()
 	defer session.Close()
 
-	err := session.DB("worldcup").C("players").Find(bson.M{}).All(data)
-	if err != nil {
-		return err
-	}
-	return nil
+	return session.DB("worldcup").C("players").Find(bson.M{}).All(data)
 }
 
 // Insert adiciona um novo item no db
@@ -56,11 +48,7 @@ func (m *MongoTransport) Insert(data interface{}) error {
 	session := m.Session.Copy()
 	defer session.Close()
 
-	err := session.DB("worldcup").C("players").Insert(data)
-	if err != nil {
-		return err
-	}
-	return nil
+	return session.DB("worldcup").C("players").Insert(data)
 }
 
 // Delete remove um item no db
@@ -68,9 +56,5 @@ func (m *MongoTransport) Delete(ID string) error {
 	session := m.Session.Copy()
 	defer session.Close()
 
-	err := session.DB("worldcup").C("players").RemoveId(bson.ObjectIdHex(ID))
-	if err != nil {
-		return err
-	}
-	return nil
+	return session.DB("worldcup").C("players").RemoveId(bson.ObjectIdHex(ID))
 }
